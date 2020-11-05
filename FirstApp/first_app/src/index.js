@@ -1,21 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Clock from './App';
+import Button from './Button';
 import reportWebVitals from './reportWebVitals';
 
-function Greatings(props) {
-	return (
-		<h1> Hello, {props.phrase}! My name is {props.name}</h1>
-	);
+
+
+class Application extends React.Component {
+	render() {
+		return (
+			<div className="wrapper">
+				<Clock />
+				<Button />
+			</div>
+		);
+	}
 }
 
-
-
 ReactDOM.render(
-	<React.StrictMode>
-		<Greatings phrase="World" name="Vlad" />
-	</React.StrictMode>,
+	<Application />,
 	document.getElementById('root')
 );
 
