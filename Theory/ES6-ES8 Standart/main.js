@@ -73,3 +73,84 @@ let arr1 = [1, 3, 8, 7],
 	arr2 = [3, 17, 150, 2];
 let maxNumber = Math.max(...arr1, ...arr2);
 console.log(maxNumber);
+
+//* === Object (как Spread-оператор)===
+let avatar = "Photo";
+let user = {
+	name: "default",
+	password: "qwerty",
+	rights: "user",
+};
+let admin = {
+	name: "admin",
+	password: "root",
+};
+let res1 = Object.assign(user, admin);
+//В admin добавятся св-ва user, при совпадении они будут перезаписаны
+console.table(res1);
+let res2 = Object.assign({}, user, admin);
+console.table(res2);
+let res3 = { avatar, ...user, ...admin };
+console.table(res3);
+
+
+// Еслисвойство объекта имеет название, как и переменная, то запись может быть такой:
+let x = 15,
+	y = 25;
+let coords = {
+	x,//эеквивалент x:x
+	y,//эеквивалент y:y
+	calcSqr() {
+		console.log(this.x * this.y);
+	}
+};
+coords.calcSqr();
+console.log(coords);
+
+
+//* === Деструктуризация ===
+
+let car = {
+	brand: {
+		brandName: "Porsche",
+		country: "Italy",
+	},
+	engine: "V8",
+	maxSpeed: "250m/h",
+	color: "Yellow",
+};
+let { brand: { brandName, country }, maxSpeed } = car;
+//Деструктуризация объекта внутри объекта
+console.log(brandName, maxSpeed);
+
+
+function connect({//Использование деструктуризации и параметров по умолчанию
+	host = "localhost",
+	port = 5555,
+	user = "default",
+}) {
+	console.log(`Host: ${host}, port: ${port}, user: ${user}`);
+}
+connect({
+	host: "localhost",
+	user: "default",
+});
+
+let numbers = [3, 5, 17, 6];
+let [, , f] = numbers;//Пропустили первые два элемента
+console.log(f);
+
+let numbers2 = [[2, 3], [8, 9]];
+let [[g, h], [i, j]] = numbers2;
+console.log(h, i);
+
+let city = {
+	cityName: "Nizhniy Novgorod",
+	population: 1250000,
+	gender: {
+		male: ["15%", "40%"],
+		female: ["16%", "29%"],
+	}
+};
+let { gender: { male: [maleUnder18, maleAdult], female: [femaleUnder18, femaleAdult] } } = city;
+console.log(maleUnder18, femaleAdult);
