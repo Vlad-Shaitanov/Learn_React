@@ -4,13 +4,19 @@ class WhoAmI extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			years: 26,
+			years: 25,
 		};
 		this.nextYear = this.nextYear.bind(this);//Привязка метода к каждому экземпляру объекта
+		this.previousYear = this.previousYear.bind(this);
 	}
 	nextYear() {
 		this.setState(state => ({
 			years: ++state.years
+		}))
+	}
+	previousYear() {
+		this.setState(state => ({
+			years: --state.years
 		}))
 	}
 	render() {
@@ -19,9 +25,10 @@ class WhoAmI extends Component {
 		return (
 			//допустим такой синтаксис, если не нужны лишние ДИВы
 			<>
-				<button onClick={this.nextYear}>++</button>
 				<h2>My name is {name}, and surname is - {surname},
 		years = {years}</h2>
+				<button onClick={this.nextYear}>Increase age</button>
+				<button onClick={this.previousYear}>Decrease age</button>
 				<a href={link}>My profile</a>
 			</>
 		)
