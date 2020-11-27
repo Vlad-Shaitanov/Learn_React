@@ -1,28 +1,61 @@
 import React, { Component } from "react";
-import logo from './logo.svg';
+import All from "./lessons/properties and state of components";
 import './App.css';
 
-class App extends Component {
-	render() {
-		return (
-			<div className="App" >
-				<header className="App-header">
-					<img src={logo} className="App-logo" alt="logo" />
-					<p>
-						Edit <code>src/App.js</code> and save to reload.
-        </p>
-					<a
-						className="App-link"
-						href="https://reactjs.org"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Learn React
-        </a>
-				</header>
-			</div>
-		);
+const Header = () => {//Компонент
+	return <h2>Hello, world!</h2>
+}
+const Field = () => {//Компонент
+	const holder = "Enter here";
+	const styledField = {
+		width: "300px"
 	}
+
+	return <input
+		style={styledField}
+		type="text"
+		placeholder={holder}
+		autoComplete=""
+		className="first"
+		htmlFor="" />//аналог for для label(связывание с инпутами)
+}
+const Btn = () => {//Компонент
+	const text = "Log in";
+	const logged = true;
+
+	return <button>{logged ? "Enter" : text}</button>
+}
+const Checkbox = () => {
+	return <input
+		type="checkbox" />
+
+}
+const TextArea = () => {
+	const text = "Insert text here";
+	return (
+
+		<textarea
+			placeholder={text}
+			className="textarea" />
+	)
+}
+
+const App = () => {
+	return (
+		<div>
+			<div
+				className="top-block">
+				<Header />
+				<Field />
+				<Btn />
+				<Checkbox />
+				<TextArea />
+			</div>
+			<div>
+				<All />
+			</div>
+		</div>
+	)
 }
 
 export default App;
