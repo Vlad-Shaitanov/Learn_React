@@ -6,9 +6,12 @@ class WhoAmI extends Component {
 		this.state = {
 			years: 26,
 		};
+		this.nextYear = this.nextYear.bind(this);//Привязка метода к каждому экземпляру объекта
 	}
 	nextYear() {
-		console.log(1);
+		this.setState(state => ({
+			years: ++state.years
+		}))
 	}
 	render() {
 		const { name, surname, link } = this.props;
