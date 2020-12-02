@@ -6,6 +6,7 @@ import PostStatusFilter from "../post-status-filter/index";
 import PostList from "../post-list/index";
 import PostAddForm from "../post-add-form/index";
 import "./app.css";
+import style from "./App.module.css";
 
 const App = () => {//Компонент с приложением
 	const data = [
@@ -15,7 +16,7 @@ const App = () => {//Компонент с приложением
 	];
 
 	return (
-		<div className="app">
+		<div className={style.app}>
 			<AppHeader />
 			<div className="search-panel d-flex">
 				<SearchPanel />
