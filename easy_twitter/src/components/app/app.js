@@ -29,20 +29,22 @@ export default class App extends Component {//Компонент с прилож
 				{ label: "Work hard", important: false, like: false, id: 2 },
 				{ label: "I need a break...", important: false, like: false, id: 3 }
 			],
-			term: ""
+			term: "",//Ввод пользователя в строке поиска
+			filter: "all"//Фильтрация постов
 		}
 		this.deleteItem = this.deleteItem.bind(this);
 		this.addItem = this.addItem.bind(this);
 		this.onToggleImportant = this.onToggleImportant.bind(this);
 		this.onToggleLiked = this.onToggleLiked.bind(this);
 		this.onUpdateSearch = this.onUpdateSearch.bind(this);
+		this.onFilterSelect = this.onFilterSelect.bind(this);
 
-		this.maxId = 4;
+		this.maxId = 4;//Макс. число постов
 	}
 
 	onToggleImportant(id) {//Переключение статуса важности на постах
 		this.setState(({ data }) => {
-			const index = data.findIndex(elem => elem.id === id);
+			const index = data.findIndex(elem => elem.id === id);//Индекс поста
 			const old = data[index];//Старый элемент, который надо изменить
 			const newItem = { ...old, important: !old.important };//Новый элемент на основе старого с заменой значения св-ва
 			//Новый массив с измененным элементом
@@ -56,7 +58,7 @@ export default class App extends Component {//Компонент с прилож
 
 	onToggleLiked(id) {//Переключение лайков в постах
 		this.setState(({ data }) => {
-			const index = data.findIndex(elem => elem.id === id);
+			const index = data.findIndex(elem => elem.id === id);//Индекс поста
 			const old = data[index];//Старый элемент, который надо изменить
 			const newItem = { ...old, like: !old.like };//Новый элемент на основе старого с заменой значения св-ва
 			//Новый массив с измененным элементом
@@ -68,9 +70,9 @@ export default class App extends Component {//Компонент с прилож
 		});
 	}
 
-	deleteItem(id) {
+	deleteItem(id) {//Удаление поста
 		this.setState(({ data }) => {
-			const index = data.findIndex(elem => elem.id === id);
+			const index = data.findIndex(elem => elem.id === id);//Индекс поста
 
 			const before = data.slice(0, index);//часть массива до вырезаемого нами элемента
 			const after = data.slice(index + 1);//часть массива после вырезаемого нами элемента
@@ -84,7 +86,7 @@ export default class App extends Component {//Компонент с прилож
 		});
 	}
 
-	addItem(body) {
+	addItem(body) {//Добавление поста
 		const newItem = {
 			label: body,
 			important: false,
@@ -100,7 +102,15 @@ export default class App extends Component {//Компонент с прилож
 		});
 	}
 
-	searchPost(items, term) {
+	filterPost(items, filter) {
+		if (filter === "like") {
+			return items.filter(item => item.like)
+		} else {
+			return items
+		}
+	}
+
+	searchPost(items, term) {//Живой поиск
 		if (items.length === 0) {
 			return items
 		}
@@ -111,17 +121,22 @@ export default class App extends Component {//Компонент с прилож
 		});
 	}
 
-	onUpdateSearch(term) {
+	onUpdateSearch(term) {// обновление состояния поля живого поиска
 		this.setState({ term });
 	}
 
+	onFilterSelect(filter) {
+		this.setState({ filter });
+	}
+
 	render() {
-		const { data, term } = this.state;
+		const { data, term, filter } = this.state;
 
 		const liked = data.filter(item => item.like).length;//Кол-во лайкнутых постов
 		const allPosts = data.length;//Постов всего
 
-		const visiblePosts = this.searchPost(data, term);//Посты, видимые на основании ввода пользователя
+		//Посты, видимые на основании ввода пользователя
+		const visiblePosts = this.filterPost(this.searchPost(data, term), filter);
 
 		return (//className={style.app}
 			<AppBlock>
@@ -131,7 +146,9 @@ export default class App extends Component {//Компонент с прилож
 				<div className="search-panel d-flex">
 					<SearchPanel
 						onUpdateSearch={this.onUpdateSearch} />
-					<PostStatusFilter />
+					<PostStatusFilter
+						filter={filter}
+						onFilterSelect={this.onFilterSelect} />
 				</div>
 				<PostList
 					posts={visiblePosts}
