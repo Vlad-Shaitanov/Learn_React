@@ -29,11 +29,13 @@ export default class App extends Component {//Компонент с прилож
 				{ label: "Work hard", important: false, like: false, id: 2 },
 				{ label: "I need a break...", important: false, like: false, id: 3 }
 			],
+			term: ""
 		}
 		this.deleteItem = this.deleteItem.bind(this);
 		this.addItem = this.addItem.bind(this);
 		this.onToggleImportant = this.onToggleImportant.bind(this);
 		this.onToggleLiked = this.onToggleLiked.bind(this);
+		this.onUpdateSearch = this.onUpdateSearch.bind(this);
 
 		this.maxId = 4;
 	}
@@ -98,11 +100,28 @@ export default class App extends Component {//Компонент с прилож
 		});
 	}
 
+	searchPost(items, term) {
+		if (items.length === 0) {
+			return items
+		}
+
+		return items.filter((item) => {//В каждом элементе будем находить label и уже в нем то, что ввел пользователь
+			return item.label.indexOf(term) > -1;
+			//Фильтр вернет те посты, в которых содержится то, что ввел пользователь
+		});
+	}
+
+	onUpdateSearch(term) {
+		this.setState({ term });
+	}
+
 	render() {
-		const { data } = this.state;
+		const { data, term } = this.state;
 
 		const liked = data.filter(item => item.like).length;//Кол-во лайкнутых постов
 		const allPosts = data.length;//Постов всего
+
+		const visiblePosts = this.searchPost(data, term);//Посты, видимые на основании ввода пользователя
 
 		return (//className={style.app}
 			<AppBlock>
@@ -110,11 +129,12 @@ export default class App extends Component {//Компонент с прилож
 					liked={liked}
 					allPosts={allPosts} />
 				<div className="search-panel d-flex">
-					<SearchPanel />
+					<SearchPanel
+						onUpdateSearch={this.onUpdateSearch} />
 					<PostStatusFilter />
 				</div>
 				<PostList
-					posts={this.state.data}
+					posts={visiblePosts}
 					onDelete={this.deleteItem}
 					onToggleImportant={this.onToggleImportant}
 					onToggleLiked={this.onToggleLiked} />
