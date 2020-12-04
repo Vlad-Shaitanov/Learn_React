@@ -25,15 +25,45 @@ export default class App extends Component {//Компонент с прилож
 		super(props);
 		this.state = {
 			data: [
-				{ label: "Going to learn React", important: true, id: 1 },
-				{ label: "Work hard", important: false, id: 2 },
-				{ label: "I need a break...", important: false, id: 3 }
+				{ label: "Going to learn React", important: true, like: false, id: 1 },
+				{ label: "Work hard", important: false, like: false, id: 2 },
+				{ label: "I need a break...", important: false, like: false, id: 3 }
 			],
 		}
 		this.deleteItem = this.deleteItem.bind(this);
 		this.addItem = this.addItem.bind(this);
+		this.onToggleImportant = this.onToggleImportant.bind(this);
+		this.onToggleLiked = this.onToggleLiked.bind(this);
 
 		this.maxId = 4;
+	}
+
+	onToggleImportant(id) {//Переключение статуса важности на постах
+		this.setState(({ data }) => {
+			const index = data.findIndex(elem => elem.id === id);
+			const old = data[index];//Старый элемент, который надо изменить
+			const newItem = { ...old, important: !old.important };//Новый элемент на основе старого с заменой значения св-ва
+			//Новый массив с измененным элементом
+			const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+
+			return {
+				data: newArr
+			}
+		});
+	}
+
+	onToggleLiked(id) {//Переключение лайков в постах
+		this.setState(({ data }) => {
+			const index = data.findIndex(elem => elem.id === id);
+			const old = data[index];//Старый элемент, который надо изменить
+			const newItem = { ...old, like: !old.like };//Новый элемент на основе старого с заменой значения св-ва
+			//Новый массив с измененным элементом
+			const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+
+			return {
+				data: newArr
+			}
+		});
 	}
 
 	deleteItem(id) {
@@ -69,16 +99,25 @@ export default class App extends Component {//Компонент с прилож
 	}
 
 	render() {
+		const { data } = this.state;
+
+		const liked = data.filter(item => item.like).length;//Кол-во лайкнутых постов
+		const allPosts = data.length;//Постов всего
+
 		return (//className={style.app}
 			<AppBlock>
-				<AppHeader />
+				<AppHeader
+					liked={liked}
+					allPosts={allPosts} />
 				<div className="search-panel d-flex">
 					<SearchPanel />
 					<PostStatusFilter />
 				</div>
 				<PostList
 					posts={this.state.data}
-					onDelete={this.deleteItem} />
+					onDelete={this.deleteItem}
+					onToggleImportant={this.onToggleImportant}
+					onToggleLiked={this.onToggleLiked} />
 				<PostAddForm
 					onAddItem={this.addItem} />
 			</AppBlock>
