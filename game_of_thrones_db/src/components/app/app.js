@@ -1,9 +1,13 @@
 import React from "react";
-import { Col, Row, Container } from "reactstrap";
+import { Col, Row, Container, Button } from "reactstrap";
 import Header from "../header/index.js";
 import RandomChar from "../randomChar/index.js";
 import ItemList from "../itemList/index.js";
 import CharDetails from "../charDetails/index.js";
+
+const SwitchRandomChar = () => {
+	return
+}
 
 const App = () => {
 	return (
@@ -15,6 +19,7 @@ const App = () => {
 				<Row>
 					<Col lg={{ size: 5, offset: 0 }}>
 						<RandomChar></RandomChar>
+						<Button color="primary" size="lg" block>Show/hide Random Character</Button>
 					</Col>
 				</Row>
 				<Row>
