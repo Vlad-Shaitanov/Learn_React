@@ -43,13 +43,21 @@ export default class GotService {
 		return this._transformHouse(house);
 	}
 
+	setData(data) {
+		if (data) {
+			return data;
+		} else {
+			return "no data:(";
+		}
+	}
+
 	_transformCharacter(char) {
 		return {
-			name: char.name,
-			gender: char.gender,
-			born: char.born,
-			died: char.died,
-			culture: char.culture,
+			name: this.setData(char.name),
+			gender: this.setData(char.gender),
+			born: this.setData(char.born),
+			died: this.setData(char.died),
+			culture: this.setData(char.culture),
 		}
 	}
 
