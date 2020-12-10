@@ -2,19 +2,23 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "reactstrap";
 import Header from "../header/index.js";
 import RandomChar from "../randomChar/index.js";
-import ItemList from "../itemList/index.js";
-import CharDetails from "../charDetails/index.js";
+import CharacterPage from "../characterPage/index.js";
 import ErrorMessage from "../errorMessage/index.js";
 
 import "./app.css";
-
-
 
 export default class App extends Component {
 	state = {
 		showRandomChar: true,//По умолчанию блок RandomChar виден
 		error: false
 	}
+
+	componentDidCatch() {
+		this.setState({
+			error: true
+		});
+	}
+
 	toggleRandomChar = () => {//Переключение видимости блока RandomChar по нажатию кнопки
 		this.setState((state) => {
 			return {
@@ -22,6 +26,7 @@ export default class App extends Component {
 			}
 		});
 	}
+
 
 	render() {
 		if (this.state.error) {
@@ -42,14 +47,7 @@ export default class App extends Component {
 								onClick={this.toggleRandomChar}>Show/hide random character</button>
 						</Col>
 					</Row>
-					<Row>
-						<Col md="6">
-							<ItemList></ItemList>
-						</Col>
-						<Col md="6">
-							<CharDetails></CharDetails>
-						</Col>
-					</Row>
+					<CharacterPage />
 				</Container>
 			</>
 		)

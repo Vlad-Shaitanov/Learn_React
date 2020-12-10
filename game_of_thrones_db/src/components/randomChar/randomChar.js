@@ -5,16 +5,22 @@ import Spinner from "../spinner/index.js";
 import ErrorMessage from "../errorMessage/index.js";
 
 export default class RandomChar extends Component {
-	constructor() {
-		super();
-		this.updateCharacter();
-	}
 
 	gotService = new gotService();
 	state = {
 		char: {},
 		loading: true,//Дефолтное состояние загрузки
 		error: false,//Дефолтное состояние ошибки
+	}
+
+	componentDidMount() {
+		console.log("mounting");
+		this.updateCharacter();
+		this.timerId = setInterval(this.updateCharacter, 4000);
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.timerId);
 	}
 
 	onCharLoaded = (char) => {//Установка состояния перса
@@ -31,7 +37,7 @@ export default class RandomChar extends Component {
 		});
 	}
 
-	updateCharacter() {//обновление состояния перса
+	updateCharacter = () => {//обновление состояния перса
 		const id = Math.floor(Math.random() * 140 + 25);// От 25 по 140 персонажа
 		this.gotService.getCharacter(id)
 			.then(this.onCharLoaded)
