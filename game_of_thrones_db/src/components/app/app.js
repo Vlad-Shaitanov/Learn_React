@@ -4,10 +4,15 @@ import Header from "../header/index.js";
 import RandomChar from "../randomChar/index.js";
 import CharacterPage from "../characterPage/index.js";
 import ErrorMessage from "../errorMessage/index.js";
+import ItemList from "../itemList/index.js";
+import CharDetails from "../charDetails/index.js";
+import GotService from "../../services/gotService.js";
 
 import "./app.css";
 
 export default class App extends Component {
+
+	gotService = new GotService();
 	state = {
 		showRandomChar: true,//По умолчанию блок RandomChar виден
 		error: false
@@ -48,6 +53,26 @@ export default class App extends Component {
 						</Col>
 					</Row>
 					<CharacterPage />
+					{/* <Row>
+						<Col md="6">
+							<ItemList
+								onCharSelected={this.onCharSelected}
+								getData={this.gotService.getAllBooks} />
+						</Col>
+						<Col md="6">
+							<CharDetails charId={this.state.selectedChar} />
+						</Col>
+					</Row>
+					<Row>
+						<Col md="6">
+							<ItemList
+								onCharSelected={this.onCharSelected}
+								getData={this.gotService.getAllHouses} />
+						</Col>
+						<Col md="6">
+							<CharDetails charId={this.state.selectedChar} />
+						</Col>
+					</Row> */}
 				</Container>
 			</>
 		)
