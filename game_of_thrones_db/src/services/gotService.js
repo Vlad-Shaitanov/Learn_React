@@ -51,10 +51,15 @@ export default class GotService {
 		}
 	}
 
+	_extractId = (item) => {
+		const idRegExp = /\/([0-9]*)$/;
+		return item.url.match(idRegExp)[1];
+	}
 
 	_transformCharacter = (char) => {
 		return {
-			name: char.name,
+			id: this._extractId(char),
+			name: this.isSet(char.name),
 			gender: this.isSet(char.gender),
 			born: this.isSet(char.born),
 			died: this.isSet(char.died),
@@ -64,7 +69,8 @@ export default class GotService {
 
 	_transformHouse = (house) => {
 		return {
-			name: house.name,
+			id: this._extractId(house),
+			name: this.isSet(house.name),
 			region: this.isSet(house.region),
 			words: this.isSet(house.words),
 			titles: this.isSet(house.titles),
@@ -75,7 +81,8 @@ export default class GotService {
 
 	_transformBook = (book) => {
 		return {
-			name: book.name,
+			id: this._extractId(book),
+			name: this.isSet(book.name),
 			numberOfPages: this.isSet(book.numberOfPages),
 			publiser: this.isSet(book.publiser),
 			released: this.isSet(book.released),
