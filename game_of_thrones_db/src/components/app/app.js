@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "reactstrap";
 import Header from "../header/index.js";
 import RandomChar from "../randomChar/index.js";
-import CharacterPage from "../characterPage/index.js";
+import { CharacterPage, BooksPage, HousesPage, BooksItem } from '../pages/index.js';
 import ErrorMessage from "../errorMessage/index.js";
-import ItemList from "../itemList/index.js";
-import CharDetails from "../charDetails/index.js";
 import GotService from "../../services/gotService.js";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import "./app.css";
 
@@ -39,44 +38,33 @@ export default class App extends Component {
 		}
 		const char = this.state.showRandomChar ? <RandomChar /> : null;
 		return (
-			<>
-				<Container>
-					<Header></Header>
-				</Container>
-				<Container>
-					<Row>
-						<Col lg={{ size: 5, offset: 0 }}>
-							{char}
-							<button
-								className="toggle-btn"
-								onClick={this.toggleRandomChar}>Show/hide random character</button>
-						</Col>
-					</Row>
-					<CharacterPage />
-					<Row>
-						<Col md="6">
-							<ItemList
-								onItemSelected={this.onItemSelected}
-								getData={this.gotService.getAllBooks}
-								renderItem={(item) => item.name} />
-						</Col>
-						<Col md="6">
-							<CharDetails charId={this.state.selectedChar} />
-						</Col>
-					</Row>
-					<Row>
-						<Col md="6">
-							<ItemList
-								onItemSelected={this.onItemSelected}
-								getData={this.gotService.getAllHouses}
-								renderItem={(item) => item.name} />
-						</Col>
-						<Col md="6">
-							<CharDetails charId={this.state.selectedChar} />
-						</Col>
-					</Row>
-				</Container>
-			</>
+			<Router>
+				<div className="app">
+					<Container>
+						<Header></Header>
+					</Container>
+					<Container>
+						<Row>
+							<Col lg={{ size: 5, offset: 0 }}>
+								{char}
+								<button
+									className="toggle-btn"
+									onClick={this.toggleRandomChar}>Show/hide random character</button>
+							</Col>
+						</Row>
+						<Route path="/" exact component={() => <h1>Welcome to GOT DATABASE</h1>} />
+						<Route path="/characters" component={CharacterPage} />
+						<Route path="/houses" component={HousesPage} />
+						<Route path="/books" exact component={BooksPage} />
+						<Route path="/books/:id" render={
+							({ match }) => {
+								const { id } = match.params;
+								return <BooksItem bookId={id} />
+							}
+						} />
+					</Container>
+				</div>
+			</Router>
 		)
 	}
 }

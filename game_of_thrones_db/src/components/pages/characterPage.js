@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import ItemList from "../itemList/index.js";
-import CharDetails, { Field } from "../charDetails/index.js";
+import ItemDetails, { Field } from "../itemDetails/index.js";
 import ErrorMessage from "../errorMessage/index.js";
 import GotService from "../../services/gotService.js";
 import RowBlock from "../rowBlock/rowBlock.js";
-import "./characterPage.css";
 
 export default class CharacterPage extends Component {
 
 	gotService = new GotService();
 
 	state = {
-		selectedChar: 130,//Какой перс выбран в данный момент
+		selectedChar: null,//Какой перс выбран в данный момент
 		error: false,
 	}
 
@@ -38,17 +37,19 @@ export default class CharacterPage extends Component {
 				getData={this.gotService.getAllCharacters}
 				renderItem={({ name, gender }) => `${name} (${gender})`} />
 		)
-		const charDetails = (
-			<CharDetails charId={this.state.selectedChar}>
+		const itemDetails = (
+			<ItemDetails
+				itemId={this.state.selectedChar}
+				getData={this.gotService.getCharacter}>
 				<Field field="gender" label="Gender" />
 				<Field field="born" label="Born" />
 				<Field field="died" label="Died" />
 				<Field field="culture" label="Culture" />
-			</CharDetails>
+			</ItemDetails>
 		)
 
 		return (
-			<RowBlock left={itemList} right={charDetails} />
+			<RowBlock left={itemList} right={itemDetails} />
 		)
 	}
 }
