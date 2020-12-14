@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import Spinner from '../spinner/index.js';
+import PropTypes from "prop-types";
 import './itemList.css';
 export default class ItemList extends Component {
 
 	state = {
 		itemList: null,//Список персонажей
+	}
+
+	static defaultProps = {//Дефолтное значение пропса
+		onItemSelected: () => { }//Пустая функция
+	}
+	static propTypes = {
+		onItemSelected: PropTypes.func,//Проверяем что переданный пропс является функцией
 	}
 
 	componentDidMount() {
@@ -47,3 +55,4 @@ export default class ItemList extends Component {
 		);
 	}
 }
+
