@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing <RandomChar/> RandomChar have rendered correctly 1`] = `
+<div
+  className="random-block rounded"
+>
+  <div
+    class="loadingio-spinner-spin-ujjn0oqt6tf"
+  >
+    <div
+      class="ldio-asfxmtcg4i"
+    >
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+    </div>
+  </div>
+</div>
+`;
