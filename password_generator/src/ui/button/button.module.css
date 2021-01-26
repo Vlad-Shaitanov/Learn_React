@@ -12,3 +12,7 @@
 	border-radius: 4px;
 	outline: none;
 }
+
+.button:active {
+	background-color: darkgreen;
+}
