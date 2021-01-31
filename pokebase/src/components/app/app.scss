@@ -1,0 +1,13 @@
+.App {
+	height: 100vh;
+	background: #aead00 url("../../img/background_2.jpg") center center no-repeat;
+	background-size: cover;
+}
+
+.wrapper {
+	min-height: 100%;
+	display: grid;
+	grid-template: minmax(75px, auto) 1fr minmax(55px, auto) / 1fr;
+	/*... /1fr т.к. одна колонка */
+	grid-template-areas: "header" "main" "footer";
+}

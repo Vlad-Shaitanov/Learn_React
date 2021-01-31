@@ -4,8 +4,8 @@ import errorPic from "../../img/robo-error.png";
 const ErrorMessage = () => {
 	return (
 		<div className="error">
-			<img src={errorPic} alt="Sorry"></img>
-			<span>Something goes wrong!</span>
+			<img src={errorPic} width="200" alt="Sorry"></img>
+			<div>Something goes wrong!</div>
 		</div>
 	)
 }
