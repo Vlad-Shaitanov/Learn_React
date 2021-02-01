@@ -1,6 +1,7 @@
 import React from "react";
-import ErrorMessage from "../errorMessage/index.js";
+// import ErrorMessage from "../errorMessage/index.js";
 import AppHeader from "../appHeader/index.js";
+import { MainPage } from "../pages/index.js";
 import './app.scss';
 
 function App() {
@@ -8,7 +9,12 @@ function App() {
 		<div className="App">
 			<div className="wrapper">
 				<AppHeader></AppHeader>
-				<ErrorMessage />
+				{/* <ErrorMessage /> */}
+				<main className="main">
+					<ul className="poke__list">
+						<MainPage></MainPage>
+					</ul>
+				</main>
 			</div>
 		</div>
 	);

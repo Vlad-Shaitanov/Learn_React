@@ -4,10 +4,15 @@
 	background-color: transparent;
 	display: grid;
 	align-items: center;
-	grid-template: 1fr/1fr minmax(auto, 200px) minmax(auto, 1100px) 1fr;
+	grid-template: 1fr / 1fr minmax(auto, 200px) minmax(auto, 1100px) 1fr;
 }
 .header__logo {
 	grid-column: 2 / 3;
+	p {
+		text-align: center;
+		color: #fff;
+		font-size: 20px;
+	}
 }
 
 .header__menu {
