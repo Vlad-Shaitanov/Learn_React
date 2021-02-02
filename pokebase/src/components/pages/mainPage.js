@@ -2,52 +2,32 @@ import React from "react";
 import PokeService from "../../services/pokeService.js";
 
 const MainPage = () => {
-	const pokeService = new PokeService();
-	const res = [];
-	const names = [];
+	const service = new PokeService();
 
-	pokeService.getAllPokemons()
+	const pokeList = [];
+
+	service.getAllPokemons()
 		.then(data => {
-			res.push(data);
-			console.log(res);
+			pokeList.push(...data.results);
+			console.log(pokeList);
 		});
-	console.log(res);
-	// pokeService.getResource("pokemon/5")
-	// 	// .then(response => {
-	// 	// 	res.push(...response.results);
-	// 	// 	// showNames();
-	// 	// 	// createPokeList();
-	// 	// 	console.log(res)
-	// 	// });
-	// 	.then(response => {
-	// 		res.push(response)
-	// 		console.log(res);
-	// 	});
 
-
-	// function showNames() {
-	// 	res.forEach(item => {
-	// 		names.push(item.name);
-	// 	});
-	// }
-	// console.log(res);
-	// console.log(names);
-
-	// function createPokeList() {
-	// 	res.forEach(({ name }) => {
-	// 		console.log(name);
-	// 		return (
-	// 			<li class="poke__list-item">
-	// 				<a href="#section">${name}</a>
-	// 			</li>
-	// 		);
-	// 	});
-
-	// }
-
+	const renderCards = (pokeList) => {
+		const test = [...pokeList];
+		console.log(test);
+		return test.map((item) => {
+			const { name } = item;
+			console.log("ok");
+			return (
+				<a href="#section">{name}</a>
+			)
+		})
+	};
+	const items = renderCards(pokeList);
+	console.log(items);
 	return (
 		<li className="poke__list-item">
-			<a href="#section">Pokemon</a>
+			{items}
 		</li>
 	)
 };
