@@ -6,29 +6,41 @@ const MainPage = () => {
 
 	const pokeList = [];
 
+	// let items = "";
+
 	service.getAllPokemons()
 		.then(data => {
 			pokeList.push(...data.results);
 			console.log(pokeList);
+			renderCards(pokeList);
+			console.log(items);
+
 		});
 
-	const renderCards = (pokeList) => {
-		const test = [...pokeList];
-		console.log(test);
-		return test.map((item) => {
-			const { name } = item;
-			console.log("ok");
+	// function pokeCards(pokeList) {
+	// 	items = (renderCards(pokeList));
+	// }
+
+	function renderCards(arr) {
+
+		return arr.map((item) => {
+			const { name, index } = item;
+			// console.log(name);
 			return (
-				<a href="#section">{name}</a>
+				<li key={index} className="poke__list-item">
+					{name}
+				</li>
 			)
 		})
 	};
 	const items = renderCards(pokeList);
+	// console.log(renderCards(pokeList));
 	console.log(items);
+
 	return (
-		<li className="poke__list-item">
+		<ul className="poke__list">
 			{items}
-		</li>
+		</ul>
 	)
 };
 
